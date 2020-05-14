@@ -2,37 +2,65 @@ const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
-
 var engine, world;
 
-var b1;
-var c1;
+var ball,ground,base;
 var chain;
-var c2;
 
-function setup() {
+function setup(){ 
   
   engine = Engine.create();
     world = engine.world;
+
+    var ground_options={
+      isStatic : true
+    }
   
-  b1 = new Base(200,15,180,15);
-  c1 = new Ball(200,170,45,45);
-  c2 = new Ball(150,120,45,45);
+    var base_options={
+      isStatic: true
+    }
   
+    ground = Bodies.rectangle(200,390,400,15,ground_options)
+    World.add(world,ground);
   
-  chain = new Chain(b1.body,c1.body);
+  base = Bodies.rectangle(200,10,200,10,base_options);
+  World.add(world,base);
   
+  var ball_options = {
+    restitution : 1.0,
+    density : 1.0
+  }
+  
+  ball  = Bodies.circle(180,200,20,ball_options);
+  World.add(world,ball);
+
 
 }
 
 function draw() {
-  background(252);
-  
-  
-  b1.display();
-  c1.display();
-  chain.display();
-  c2.display();
-  
+  background(2);
+
+  fill ("brown");
+rectMode(CENTER);
+rect(base.position.x,base.position.y,200,15);
+
+fill(0);
+rectMode(CENTER);
+rect(ground.position.x,ground.position.y,400,20);
+
+
+fill("red");
+ellipseMode(RADIUS);
+ellipse(ball.position.x,ball.position.y,20);
+
+strokeWeight(5);
+  stroke("white");
+  line(ball.position.x,ball.position.y,base.position.x,base.position.y)
+
+  if(keyCode===32){
+    ball.position.y = mouseY;
+    ball.position.x = mouseX;
+    }
+
   drawSprites();
 }

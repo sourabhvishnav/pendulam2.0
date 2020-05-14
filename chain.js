@@ -13,6 +13,7 @@ class Chain {
     display (){
         var pointA = this.chain.bodyA.position;
         var pointB = this.chain.bodyB.position;
+        fill("white");
         strokeWeight(6);
         line(pointA.x,pointA.y,pointB.x,pointB.y);
     }
